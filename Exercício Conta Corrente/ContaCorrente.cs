@@ -2,28 +2,32 @@
 
 namespace Exercício_Conta_Corrente
 {
-   public  class ContaCorrente
+    public class ContaCorrente
     {
-        public double saldo = 0;
-        public int numero = 0;
-        public double limite = 0;
-        public double valor = 0;
+        public decimal saldo;
+        public int numero;
+        public decimal limite;
 
 
-        public double Sacar()
+        public void Sacar(decimal quantia)
         {
-            Console.Write("Informe um valor para sacar: ");
-            valor = Convert.ToInt32(Console.ReadLine());
-            saldo = saldo - valor;
-            return saldo;
+            if (quantia < saldo + limite)
+            {
+                saldo -= quantia;
+            }
+
         }
 
-        public double Depositar()
+        public void Depositar(decimal quantia)
         {
-            Console.Write("Informe um valor para depositar: ");
-            valor = Convert.ToInt32(Console.ReadLine());
-            saldo = saldo + valor;
-            return saldo;
+            saldo += quantia;
+        }
+
+        public void TransferirPara(ContaCorrente destinatario, decimal quantia)
+        {
+            destinatario.Depositar(quantia);
+
+            this.Sacar(quantia);
         }
     }
 }
